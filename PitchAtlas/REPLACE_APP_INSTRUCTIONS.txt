@@ -1,0 +1,23 @@
+PITCHATLAS — REPLACE THE ACTIVE app.R ONLY
+
+This app.R contains these 8 tabs:
+- Ground Explorer
+- Compare Grounds
+- Bowling Length
+- Match Predictions
+- Strategy Recommendations
+- Recent Match Trends
+- Ground Data
+- Sources & Methods
+
+Weather Context is intentionally removed, as requested. The unresolved small() function calls are fixed using tags$small().
+
+INSTALL
+1. Stop the running Shiny app with the red Stop button in RStudio.
+2. Copy this app.R over the active project-root app.R — the file in the same folder as PitchAtlas.Rproj.
+   Do not copy it only into a nested extracted folder.
+3. Do not rerun the cache-builder or preparation scripts; the cache validator has already passed.
+4. In RStudio, ensure the working directory is the project root, then run: shiny::runApp()
+5. Check the top navigation bar for Match Predictions, Strategy Recommendations, and Recent Match Trends.
+
+This package intentionally contains only the app replacement instructions and app.R; it does not replace user data or cache files.

@@ -1,0 +1,32 @@
+PITCHATLAS — CACHE VERSION 6 FIX PATCH
+
+Why this patch is needed
+The current main app.R checks for pitchatlas_cache_version = 6, while the root R/05_prepare_enriched_data.R in the uploaded project still writes version 5. The matching v6 preparation/cache-builder scripts were present under PitchAtlas_Three_Features_Data_Fix, but not at the project root. This patch places those matching scripts where the app expects them.
+
+APPLY THIS PATCH
+1. Stop the Shiny app in RStudio.
+2. Extract this ZIP directly into the project root — the folder that contains PitchAtlas.Rproj. Allow R/05 and R/06 to be replaced. The patch adds R/07.
+3. Before rebuilding, make a backup in the RStudio Console:
+
+   file.copy("data/processed/enriched_ball_data.rds",
+             "data/processed/enriched_ball_data_backup_before_v6.rds",
+             overwrite = TRUE)
+
+   Confirm that the console returns TRUE.
+4. Confirm these source files exist in your existing Downloads/archive folder:
+   - ball_by_ball_data.csv
+   - cricinfo_tracking.csv
+   - matches.csv
+5. From the project root, run these commands in order, waiting for each to finish:
+
+   source("R/05_prepare_enriched_data.R")
+   source("R/06_build_dashboard_cache.R")
+   source("R/07_validate_fast_cache.R")
+   shiny::runApp()
+
+IMPORTANT
+- Do not run the version-5 root preparation/cache-builder after applying this patch.
+- The preparation step rereads selected columns from the large source CSVs and can take several minutes. Run it once to rebuild the v6 prepared cache; later refreshes normally need only R/06 after the source data changes.
+- The validator checks the compact caches. It is not a substitute for successfully completing steps 1 and 2 above: the R/06 builder itself checks the prepared cache version and should reject a version-5 cache.
+- Do not replace app.R, R/02_analysis_helpers.R, data/, data/reference/, or the existing Cricsheet RDS files with this patch. The patch intentionally contains only the three cache scripts and this note.
+- I could inspect and statically verify the script compatibility, but this environment does not have an R runtime, so I could not execute shiny::runApp() here.

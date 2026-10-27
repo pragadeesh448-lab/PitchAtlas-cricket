@@ -1,0 +1,33 @@
+PITCHATLAS R/SHINY UPDATE — 19 OCT 2026
+
+This ZIP updates the RStudio/Shiny project. It does not update the optional Hatchable companion page.
+
+WHAT CHANGED
+- Ground Explorer: clear 49-marker world map, map popups with country and coordinate caveat, animated year-by-year map for Test/ODI/T20 using Plotly's play/slider controls.
+- Ground Data: 49-venue pitch surface/bounce reference, source links where found, standard pitch dimensions, blank unverified boundary measurements, and derived local match behaviour.
+- Bowling Length: corrected source label normalization, including keeping "short of a good length" separate from "good length" and preserving "full toss" / "yorker" separately; schematic length map; wicket-rate chart; real wagon-wheel chart and batter-run-by-sector pie when enriched tracking data is loaded.
+- Data upload: supports one compatible combined CSV or the three enriched files joined by match_id + innings + delivery_number; selected columns are loaded to reduce memory use and duplicate join keys are rejected.
+- Memory: the app no longer loads data/processed/deliveries.rds into memory for its main dashboard; it uses the compact innings summary.
+- Validation: added R/04_validate_project.R.
+
+SAFE UPDATE STEPS
+1. Stop the running Shiny app in RStudio.
+2. Extract this ZIP over your existing PitchAtlas project folder and allow file replacement.
+3. Do NOT delete or replace your existing data/processed/ folder; your downloaded Cricsheet RDS data remains local and is not included in this ZIP.
+4. Run source("R/04_validate_project.R") in the Console.
+5. Run shiny::runApp().
+
+TO ENABLE BOWLING LENGTH / WAGON WHEEL / RUN-SECTOR PIE
+Download and extract these files from the enriched Cricket dataset linked in README.md:
+- ball_by_ball_data.csv
+- cricinfo_tracking.csv
+- matches.csv
+Then open the Bowling Length tab, choose all three files, and click "Join and load the three source files".
+
+LIMITATIONS
+- Coordinates are approximate starter coordinates for the 49 grounds in the reference list and should be verified before final publication.
+- Only 8 ground surface records currently have linked reports. Other venues explicitly say "Needs source review" rather than guessing soil/bounce.
+- Boundary dimensions remain blank when a venue-specific published distance has not been added.
+- Pitch zone bands are schematic and not measured ball-impact positions.
+- Run-sector pie uses batter runs only for deliveries with a recorded shot direction. Missing Cricinfo tracking values remain missing.
+- Full R runtime execution was not available in the packaging environment. Static file/reference checks were performed; run the project in the user's RStudio and share any console errors if encountered.

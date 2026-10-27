@@ -1,0 +1,12 @@
+PitchAtlas responsive site fix
+
+Files included:
+- app.R: replaces the current app.R. Wagon-wheel uses direct Plotly traces and caps display to at most 1,000 points across all selected grounds/formats, to reduce browser hangs.
+- R/06_build_dashboard_cache.R: builds compact summaries once from data/processed/enriched_ball_data.rds.
+
+Install:
+1. If Firefox says the page is slowing down, choose Stop It/Exit Page first, then press the red Stop button in RStudio.
+2. Extract this ZIP into the project root containing PitchAtlas.Rproj and app.R; replace app.R, and add R/06_build_dashboard_cache.R if missing.
+3. If the compact summary RDS files already exist in data/processed, do not rebuild them. Otherwise run source("R/06_build_dashboard_cache.R") once and wait for PREPARATION COMPLETE.
+4. Run shiny::runApp(). Do not run the 1.68 GB source CSV join at app startup.
+5. If the browser warns again, stop the page and send the RStudio Console output. No local interactive runtime test was available here.

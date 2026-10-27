@@ -1,0 +1,23 @@
+PitchAtlas local-data and source-direction fix
+
+Changes
+- Removes the browser file upload controls from Bowling Length.
+- Automatically searches for ball_by_ball_data.csv, matches.csv and cricinfo_tracking.csv in:
+  1) data/raw/enriched
+  2) data/raw
+  3) data/enriched
+  4) ../../archive (works for the described Downloads/archive folder from the current project location)
+  5) %USERPROFILE%/Downloads/archive on Windows
+- Fills blank venue labels from matches.csv where possible and populates the ground filters from actual venue names in the enriched data.
+- Caches the useful parsed columns as data/processed/enriched_ball_data.rds so future launches don't re-parse the large CSV unless one of the source files changes.
+- Uses source-recorded shot_direction values in the pie chart instead of merging directions into invented generic sectors. Only the small tail is combined into an explicitly named "Other recorded directions" wedge.
+- The selected ground now filters the wicket-by-length chart, wagon-wheel chart (where coordinates are present) and shot-direction pie chart.
+
+Install
+1. Stop the running Shiny app.
+2. Extract this ZIP into the existing PitchAtlas project root and allow app.R to be replaced.
+3. Replace the existing R/02_analysis_helpers.R with this ZIP's R/02_analysis_helpers.R.
+4. Do NOT replace data/processed or data/reference; your existing Cricsheet processed data stays as it is.
+5. Run shiny::runApp(). On first launch, the app reads the large local enriched CSV and writes a compact cache. Later launches should be faster.
+
+No browser upload is required. The enriched source files should remain in Downloads/archive or be placed in data/raw/enriched. Rows without a reliable venue label are excluded from the venue-level dashboard rather than being assigned a guessed ground.

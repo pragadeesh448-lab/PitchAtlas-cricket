@@ -1,0 +1,28 @@
+.Rhistory
+.RData
+.Rproj.user
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+outputs/charts/*
+!outputs/charts/.gitkeep
+
+# R private and temporary files
+.Ruserdata
+.Renviron
+
+# Backup files
+*.bak
+*.bak.*
+*.original.txt
+*.before_runner_move
+app.R.before_*
+
+# Large archives
+*.zip
+
+# Older duplicate project copies
+/PitchAtlas_GroundData_Visual_Update/
+/PitchAtlas_Three_Features_Data_Fix/
+/PitchAtlas_Three_Missing_Features_Fix/
